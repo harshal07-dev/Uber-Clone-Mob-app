@@ -1,3 +1,4 @@
+import CustomButton from "@/components/CustomButton";
 import { onboarding } from "@/constants";
 import { router } from "expo-router";
 import { useRef, useState } from "react";
@@ -48,7 +49,7 @@ export default function Onboarding() {
             <View key={item.id} className="flex-1 justify-center items-center">
               <Image 
                 source={item.image} 
-                className="w-85 h-80 mb-8"
+                className="w-80 h-80 mb-8"
                 resizeMode="contain"
               />
               <Text className="text-3xl font-bold text-center text-black mb-4">
@@ -63,14 +64,11 @@ export default function Onboarding() {
       </View>
 
       <View className="p-6">
-        <TouchableOpacity
+        <CustomButton 
+          title={activeIndex === onboarding.length - 1 ? "Get Started" : "Next"}
           onPress={handleNext}
-          className="bg-[#0286FF] py-4 px-8 rounded-full"
-        >
-          <Text className="text-white text-lg font-semibold text-center">
-            {activeIndex === onboarding.length - 1 ? "Get Started" : "Next"}
-          </Text>
-        </TouchableOpacity>
+          bgVarient="primary"
+        />
       </View>
     </SafeAreaView>
   );
