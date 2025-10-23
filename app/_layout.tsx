@@ -1,6 +1,9 @@
+import { ClerkProvider } from "@clerk/clerk-expo";
+import { tokenCache } from "@clerk/clerk-expo/token-cache";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import "./global.css";
+
 export default function RootLayout() {
   const [loaded] = useFonts({
     "Jakarta-Bold": require("../assets/fonts/PlusJakartaSans-Bold.ttf"),
@@ -10,13 +13,21 @@ export default function RootLayout() {
     "Jakarta-Medium": require("../assets/fonts/PlusJakartaSans-Medium.ttf"),
     "Jakarta-Regular": require("../assets/fonts/PlusJakartaSans-Regular.ttf"),
     "Jakarta-SemiBold": require("../assets/fonts/PlusJakartaSans-SemiBold.ttf"),
-});
+  });
+
+  if (!loaded) return null;
+
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false}}/>
-      <Stack.Screen name="(root)" options={{ headerShown: false}}/>
-      <Stack.Screen name="(auth)" options={{ headerShown: false}}/>
-      <Stack.Screen name="+not-found"/>
-    </Stack>
-  )
+    <ClerkProvider
+      publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!}
+      tokenCache={tokenCache}
+    >
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="(root)" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+        <Stack.Screen name="+not-found" />
+      </Stack>
+    </ClerkProvider>
+  );
 }

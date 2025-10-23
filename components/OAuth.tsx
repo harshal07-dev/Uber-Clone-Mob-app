@@ -4,7 +4,7 @@ import { Image, Text, View } from "react-native";
 import CustomButton from "./CustomButton";
 const OAuth = () => {
     const handleGoogleSignIn = async() => {
-        router.replace("")
+        router.replace("/(auth)/sign-in")
     }
   return (
     <View>
